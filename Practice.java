@@ -1,50 +1,40 @@
+
 import java.util.*;
 import java.io.*;
-
-class BFS{
-
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String str = br.readLine();
-        String str1 = br.readLine();
-        System.out.print(solve(str,str1));
+public class Practice {
+    public static void main(String[] args) {
+        String str = "catsanddog";
+        List<String> list = new ArrayList<>();
+        list.add("cat");
+        list.add("cats");
+        list.add("sand");
+        list.add("and");
+        list.add("dog");
+        System.out.print(new Solution().wordBreak(str, list));
     }
-    static int solve(String from, String to) {
-        Pair start = pair(from);
-        Pair end = pair(to);
-        int[][] dir = {{-2,-1},{-2,1},{-1,2},{1,2},{2,1},{2,-1},{1,-2},{-1,-2}};
-        boolean[][] visited = new boolean[8][8];
-        Queue<Pair> q = new LinkedList<>();
-        int level = 1;
-        q.add(start);
-        while(!q.isEmpty()) {
-            int size = q.size();
-            while(size-- > 0) {
-                Pair temp = q.remove();
-                for(int[] i : dir) {
-                    int row = temp.x + i[0];
-                    int col = temp.y + i[1];
-                    if(row < 0 || row > 7 || col < 0 || col > 7 || visited[row][col] == true) {
-                        continue;
-                    } else {
-                        if(row == end.x && col == end.y) return level;
-                        q.add(new Pair(row, col));
-                    }
-                }
-            }
-            level++;
-        }
-            return 0;
-    }
-    static Pair pair(String str) {
-        return new Pair(str.charAt(0)-'1', 7-(str.charAt(1)-'A'));
-    }
+    
 }
-class Pair {
-    int x;
-    int y;
-    Pair(int x, int y) {
-        this.x = x;
-        this.y = y;
+
+class Solution {
+    public List<String> wordBreak(String s, List<String> wordDict) {
+        Set<String> set = new HashSet<>();
+        for(String i : wordDict) set.add(i);
+        int n = s.length();
+        List<String> list = new ArrayList<>();
+        solve(s,set,0,"",list);
+        return list;
     }
+    void solve(String s, Set<String> set, int index, String ans,List<String> list) {
+        if(index >= s.length()) {
+            list.add(ans);
+            return;
+        }
+        
+        for(int i = index+1; i <= s.length(); ++i) {
+            if(set.contains(s.substring(index, i))) {
+                solve(s, set,i,ans+s.substring(index,i)+" ",list);
+            }
+        }
+    }
+    
 }
