@@ -1,94 +1,78 @@
+/******************************************************************************
 
+                            Online Java Compiler.
+                Code, Compile, Run and Debug java program online.
+Write your code in this editor and press "Run" button to execute it.
 
-class bTree{
+*******************************************************************************/
+
+class Main
+{
+	public static void main(String[] args) {
+		Bst bst = new Bst();
+		bst.add(5);
+		bst.add(4);
+		bst.add(8);
+		bst.add(3);
+		bst.add(6);
+		bst.add(10);
+		bst.add(19);
+		bst.neighbor(8);
+	}
+}
+class Node{
     int val;
-    bTree left;
-    bTree right;
-
-    bTree(int val) {
+    Node left;
+    Node right;
+    Node(int val) {
         this.val = val;
     }
-    bTree(){}
-
-    void preOrder() {
-        System.out.print(val+" ");
-        if(left != null) left.preOrder();
-        if(right != null) right.preOrder();
-    }
-
 }
-class solve{
-    public static void main(String[] args) {
-        bTree root = new bTree();
-        root.val = 1;
-        // root.left = new bTree(2);
-        // root.right = new bTree(3);
-        // root.right.left = new bTree(4);
-        // root.right.right = new bTree(5);
-        // root.preOrder();
-        // System.out.print(new Codec().serialize(root));
-        String temp = new Codec().serialize(root);
-        bTree node = new Codec().deserialize(temp);
-        node.preOrder();
+class Bst{
+    Node root;
+    void add(int val) {
+        root = add1(root,val);
     }
-}
- class Codec {
-    String str;
-    // Encodes a tree to a single string.
-    public String serialize(bTree root) {
-        str = "";
-        if(root == null) return str;
-        bTree node = root;
-        preOrder(node);
-        str += " ";
-        node = root;
-        inOrder(node);
-        // System.out.print(str);
-        return str;
-        
-    }
-    void preOrder(bTree root) {
-        if(root == null) return;
-        str += root.val;
-        preOrder(root.left);
-        preOrder(root.right);
-    }
-    void inOrder(bTree root) {
-        if(root == null) return;
-        inOrder(root.left);
-        str += root.val;
-        inOrder(root.right);
-    }
+    Node add1(Node root, int val) {
+        if(root == null) {
+             
+            return new Node(val);
+        }
+       if(val < root.val) {
+		   root.left = add1(root.left,val);
+	   } else {
+		   root.right = add1(root.right,val);
+	   }
+	   return root;
 
-    // Decodes your encoded data to tree.
-    public bTree deserialize(String data) {
-        if(data == "") return null;
-        String[] strarr = data.split(" ");
-        int n = strarr[0].length();
-        int[] pre = new int[n];
-        int[] ino = new int[n];
-        for(int i = 0; i < n; ++i) {
-            pre[i] = Character.getNumericValue(strarr[0].charAt(i));
-            ino[i] = Character.getNumericValue(strarr[1].charAt(i));
-        }
-        return tree(pre, ino, Integer.MIN_VALUE);
-        
     }
-    static int pr;
-    static int in;
-    bTree tree(int[] pre, int[] ino, int stop) {
-        if(pr >= pre.length) return null;
-        
-        if(ino[in] == stop) {
-            in++;
-            return null;
-        }
-        bTree node = new bTree(pre[pr]);
-        pr++;
-        
-        node.left = tree(pre, ino, node.val);
-        node.right = tree(pre, ino, stop);
-        return node;
-        
-    }
+	void preOrder() {
+		preOrder1(root);
+	}
+	void preOrder1(Node root) {
+		if(root.left != null) preOrder1(root.left);
+		System.out.print(root.val+" ");
+		if(root.right != null) preOrder1(root.right);
+	}
+	void neighbor(int val) {
+		if(root.val == val) {
+			System.out.print(root.left.val+" ");
+			System.out.print(root.right.val+" ");
+			return;
+		}
+		neighbor1(root,val,root.val);
+
+	}
+	void neighbor1(Node root, int val, int pre) {
+		if(root == null) return;
+		if(root.val == val) {
+			System.out.print(pre+" ");
+			if(root.left != null) System.out.print(root.left.val+" ");
+			if(root.right != null) System.out.print(root.right.val+" ");
+			return;
+		}
+		neighbor1(root.left, val, root.val);
+		neighbor1(root.right,val,root.val);
+
+	}
 }
