@@ -4,23 +4,24 @@
 import java.util.*;
 import java.io.*;
 class Main {
-   public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		int N = Integer.parseInt(br.readLine());
-		int Y = Integer.parseInt(br.readLine());
-		String[] str = br.readLine().trim().split(" ");
-		 int[] arr = new int[N];
-		 Map<Integer,String> map = new HashMap<>();
-		 String[] str1 = br.readLine().trim().split(" ");
-		 for(int i = 0; i < N; ++i) {
-		     arr[i] = Integer.parseInt(str1[i]);
-		     map.put(arr[i],str[i]);
-		 }
-		 Arrays.sort(arr);
-		 System.out.print("The winner is "+map.get(arr[arr.length-1]));
-		 for(int i = 0; i <= 2; ++i) {
-		     System.out.print(i+"st Place = "+map.get(arr[arr.length-1-i])+" got "+arr[arr.length-1-i]+"-points,");
-		 }
+   public static void main(String[] args) {
+		String str = "aabbccc";
+		String str1 = "a.b*c*";
+		System.out.print(new Solution().isMatch(str, str1));
 		 
 	}
+}
+class Solution {
+    public boolean isMatch(String text, String pattern) {
+        if (pattern.isEmpty()) return text.isEmpty();
+        boolean first_match = (!text.isEmpty() &&
+                               (pattern.charAt(0) == text.charAt(0) || pattern.charAt(0) == '.'));
+
+        if (pattern.length() >= 2 && pattern.charAt(1) == '*'){
+            return (isMatch(text, pattern.substring(2)) ||
+                    (first_match && isMatch(text.substring(1), pattern)));
+        } else {
+            return first_match && isMatch(text.substring(1), pattern.substring(1));
+        }
+    }
 }

@@ -1,4 +1,4 @@
-package java;
+
 
 class ScratchStack {
     int[] arr;

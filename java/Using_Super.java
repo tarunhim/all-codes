@@ -1,4 +1,4 @@
-package java;
+
 
 class Using_Super {
     int a;
