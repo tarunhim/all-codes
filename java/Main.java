@@ -1,27 +1,38 @@
+import java.io.*; // for handling input/output
+import java.util.*; // contains Collections framework
 
-
-
-import java.util.*;
-import java.io.*;
+// don't change the name of this class
+// you can add inner classes if needed
 class Main {
-   public static void main(String[] args) {
-		String str = "aabbccc";
-		String str1 = "a.b*c*";
-		System.out.print(new Solution().isMatch(str, str1));
-		 
+	public static void main (String[] args) {
+        // ["bags","baggage","banner","box","cloths"]
+        // "bags"
+		String[] arr = {"bags","baggage","banner","box","cloths"};
+		String str = "bags";
+		System.out.print(new Solution().suggestedProducts(arr, str));
 	}
+	
 }
 class Solution {
-    public boolean isMatch(String text, String pattern) {
-        if (pattern.isEmpty()) return text.isEmpty();
-        boolean first_match = (!text.isEmpty() &&
-                               (pattern.charAt(0) == text.charAt(0) || pattern.charAt(0) == '.'));
-
-        if (pattern.length() >= 2 && pattern.charAt(1) == '*'){
-            return (isMatch(text, pattern.substring(2)) ||
-                    (first_match && isMatch(text.substring(1), pattern)));
-        } else {
-            return first_match && isMatch(text.substring(1), pattern.substring(1));
+    public List<List<String>> suggestedProducts(String[] products, String searchWord) {
+        List<List<String>> list = new ArrayList();
+        Arrays.sort(products);
+        for(int i = 1; i <= searchWord.length(); ++i) {
+            list.add(solve(products,searchWord.substring(0,i)));
         }
+        return list;
+    }
+    List<String> solve(String[] arr, String cop) {
+        List<String> list = new ArrayList<>();
+        int n = cop.length();
+         for(int i = 0; i < arr.length; ++i) {
+             if(arr[i].length() >= cop.length() && arr[i].substring(0,n).equals(cop)) {
+                 list.add(arr[i]);
+                 if(list.size() >= 3) {
+                     break;
+                 }
+             }
+         }
+        return list;
     }
 }
