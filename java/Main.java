@@ -4,35 +4,21 @@ import java.util.*; // contains Collections framework
 // don't change the name of this class
 // you can add inner classes if needed
 class Main {
-	public static void main (String[] args) {
-        // ["bags","baggage","banner","box","cloths"]
-        // "bags"
-		String[] arr = {"bags","baggage","banner","box","cloths"};
-		String str = "bags";
-		System.out.print(new Solution().suggestedProducts(arr, str));
+	public static void main (String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int t = Integer.parseInt(br.readLine());
+
+		while(t-- > 0) {
+			String str1 = br.readLine();
+			String str2 = br.readLine();
+			System.out.println(solve(str1,str2,0,0));
+		}
 	}
-	
-}
-class Solution {
-    public List<List<String>> suggestedProducts(String[] products, String searchWord) {
-        List<List<String>> list = new ArrayList();
-        Arrays.sort(products);
-        for(int i = 1; i <= searchWord.length(); ++i) {
-            list.add(solve(products,searchWord.substring(0,i)));
-        }
-        return list;
-    }
-    List<String> solve(String[] arr, String cop) {
-        List<String> list = new ArrayList<>();
-        int n = cop.length();
-         for(int i = 0; i < arr.length; ++i) {
-             if(arr[i].length() >= cop.length() && arr[i].substring(0,n).equals(cop)) {
-                 list.add(arr[i]);
-                 if(list.size() >= 3) {
-                     break;
-                 }
-             }
-         }
-        return list;
-    }
+	static int solve(String str1, String str2, int index1, int index2) {
+		if(index1 == str1.length() || index2 == str2.length()) return 0;
+		if(str1.charAt(0) == str2.charAt(0)) return 1+solve(str1,str2,index1+1, index2+1);
+		int num1 = solve(str1,str2,index1+1,index2);
+		int num2 = solve(str1,str2,index1, index2+1);
+		return Math.max(num1,num2);
+	}
 }
