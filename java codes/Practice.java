@@ -6,38 +6,51 @@ import java.util.*; // contains Collections framework
 class Main {
 	static int min = 1000000000;
     public static void main (String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		String[] str = br.readLine().split(" ");
-		int v = Integer.parseInt(str[0]);
-		int e = Integer.parseInt(str[1]);
-		ArrayList<Integer>[] adj = new ArrayList[v+1];
-		for(int i = 0; i <= v; ++i) {
-			adj[i] = new ArrayList<Integer>();
-		}
-		for(int i = 0; i < e; ++i) {
-			str = br.readLine().split(" ");
-			int a = Integer.parseInt(str[0]);
-			int b = Integer.parseInt(str[1]);
-			adj[a].add(b);
-			adj[b].add(a);
-		}
-		boolean[] vis = new boolean[v+1];
-		int[] dis = new int[v+1];
-		for(int i = 1; i <= v; ++i) {
-			if(!vis[i]) dfs(adj,vis,dis,i,-1,0);
-		}
-		System.out.print(min);
-    }
-	static void dfs(ArrayList<Integer>[] adj,boolean[] vis, int[] dis, int src, int prev, int h) {
-		vis[src] = true;
-		dis[src] = h;
-		for(int i : adj[src]) {
-			if(i == prev) continue;
-			if(vis[i]) {
-				min = Math.min(min,Math.abs(dis[src]-dis[i])+1);
-			} else {
-				dfs(adj,vis,dis,i,src,h+1);
-			}
-		}
+		String beginWord = "hit", endWord = "cog";
+		String[] wordList = {"hot","dot","dog","lot","log","cog"};
+		List<String> list = new ArrayList<>();
+		for(String i : wordList) list.add(i);
+		System.out.print(new Solution().findLadders(beginWord, endWord, list));
 	}
+}
+class Solution {
+    public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
+        List<List<String>> list = new ArrayList<>();
+        Set<String> set = new HashSet<>();
+        set.addAll(wordList);
+        List<String> curr = new ArrayList<>();
+        curr.add(beginWord);
+        Queue<List<String>> q = new LinkedList<>();
+        q.offer(curr);
+        while(!q.isEmpty()) {
+            int size = q.size();
+            List<String> dlist = new ArrayList<>();
+            for(int k = 0; k < size; ++k) {
+            List<String> templ = q.poll();
+            String temp = templ.get(templ.size()-1);
+            if(temp.equals(endWord)) {
+                list.add(templ);
+                continue;
+            }
+           
+            
+            for(int i = 0; i < temp.length(); ++i) {
+				StringBuilder sb = new StringBuilder(temp);
+                for(char j = 'a'; j <= 'z'; ++j) {
+                    sb.setCharAt(i,j);
+                    if(temp.equals(sb.toString())) continue;
+                    if(set.contains(sb.toString())) {
+                        templ.add(sb.toString());
+                        q.add(new ArrayList<String>(templ));
+                        templ.remove(templ.size()-1);
+                        dlist.add(sb.toString());
+                    }
+                }
+            }
+            }
+            for(String i : dlist) set.remove(i);
+        }
+        return list;
+        
+    }
 }
