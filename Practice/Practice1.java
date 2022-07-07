@@ -1,7 +1,7 @@
 // Online Java Compiler
 // Use this editor to write, compile and run your Java code online
 import java.util.*;
-class HelloWorld {
+class Practice1{
     public static void main(String[] args) {
         int[] arr = {6, 2, 5, 4, 5, 1, 6};
         int n = arr.length;
