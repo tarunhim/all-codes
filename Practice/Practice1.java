@@ -3,40 +3,53 @@
 import java.util.*;
 class Practice1{
     public static void main(String[] args) {
-        int[] arr = {6, 2, 5, 4, 5, 1, 6};
-        int n = arr.length;
-        int max = 0;
-        Stack<Integer> stack = new Stack<>();
-        stack.push(-1);
-        for(int i = 0; i < n; ++i) {
-            while(stack.peek() != -1 && arr[i] <= arr[stack.peek()]) {
-                int temp = stack.pop();
-                max = Math.max(max,arr[temp]*(i-stack.peek()-1));
-                
-            }
-            stack.push(i);
-        }
-        System.out.print(max);
+        ListNode root1 = new ListNode(4);
+        root1.next = new ListNode(1);
+        root1.next.next = new ListNode(8);
+        root1.next.next.next = new ListNode(4);
+        root1.next.next.next.next = new ListNode(5);
+        ListNode root2 = new ListNode(5);
+        root2.next = new ListNode(6);
+        root2.next.next = new ListNode(1);
+        root2.next.next.next = root1.next.next;
+        System.out.print(new Solution().getIntersectionNode(root1, root2).val);
+        // ListNode node = root2;
+        // while(node != null) {
+        //     System.out.print(node.val+" ");
+        //     node = node.next;
+        // }
     }
-//      public static int largestRectangleArea(int[] heights) {
-//   Stack < Integer > stack = new Stack < > ();
-//   stack.push(-1);
-//   int length = heights.length;
-//   int maxArea = 0;
-//   for (int i = 0; i < length; i++) {
-//      while ((stack.peek() != -1) &&
-//       (heights[stack.peek()] >= heights[i])) {
-//       int currentHeight = heights[stack.pop()];
-//       int currentWidth = i - stack.peek() - 1;
-//       maxArea = Math.max(maxArea, currentHeight * currentWidth);
-//      }
-//      stack.push(i);
-//   }
-//   while (stack.peek() != -1) {
-//      int currentHeight = heights[stack.pop()];
-//      int currentWidth = length - stack.peek() - 1;
-//      maxArea = Math.max(maxArea, currentHeight * currentWidth);
-//   }
-//   return maxArea;
-//  }
+
 }
+ class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        Set<Integer> set = new HashSet<>();
+        ListNode node = headA;
+        while(node != null) {
+            int temp = node.hashCode();
+            set.add(temp);
+            // System.out.print(node.hashCode()+" ");
+            node = node.next;
+            
+        }
+        node = headB;
+        while(node != null) {
+            int temp = node.hashCode();
+            if(set.contains(temp)) {
+                // System.out.print(node.hashCode() + "this is return value");
+                // System.out.print(set);
+                return node;
+            } else {
+                set.add(temp);
+            }
+        }
+        return null;
+    }
+}
+ class ListNode {
+         int val;
+         ListNode next;
+         ListNode() {}
+         ListNode(int val) { this.val = val; }
+         ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+     }
