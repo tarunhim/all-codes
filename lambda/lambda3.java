@@ -1,23 +1,26 @@
+import java.util.*;
+
 public class lambda3 {
     public static void main(String[] args) {
         
-        Pair arr[] = new Pair[5];
-        arr[0] = new Pair(1,4);
-        arr[1] = new Pair(5,3);
-        arr[2] = new Pair(6,3);
-        arr[3] = new Pair(2,9);
-        arr[4] = new Pair(7,4);
-        for(Pair i : arr) {
-            System.out.println(i.a +" "+ i.b);
-        }
+        
+        List<Pair> list = new ArrayList<>();
+        list.add(new Pair("a","b"));
+        list.add(new Pair("b","g"));
+        list.add(new Pair("z","n"));
+        list.add(new Pair("r","e"));
+        Collections.sort(list,(p1,p2)->{  
+            return p1.b.compareTo(p2.b);  
+            });
+            list.forEach(n -> System.out.println(n.a+" "+n.b));
     }
     
 }
 
 class Pair {
-    int a;
-    int b;
-    Pair(int a, int b) {
+    String a;
+    String b;
+    Pair(String a, String b) {
         this.a = a;
         this.b = b;
     }
