@@ -7,7 +7,7 @@ public class lambda2 {
         list.add(3);
         list.add(4);
         list.add(5);
-        list.forEach((n) -> System.out.print(n));
+        list.forEach((n) -> System.out.print(n+" "));
     }
     
 }

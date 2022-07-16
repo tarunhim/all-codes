@@ -1,3 +1,4 @@
+import java.util.*;
 interface Drawable{  
     // public void draw();  
     public void draw(int a, int b);
