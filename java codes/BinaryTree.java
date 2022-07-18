@@ -2,7 +2,7 @@
 
 class BinaryTree
 {
-	public static void main(String[] args)  {
+	public static void main(String[] args) {
 		Bst bst = new Bst();
 		bst.add(5);
 		bst.add(4);
