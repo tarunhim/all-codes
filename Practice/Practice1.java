@@ -36,7 +36,7 @@ class Practice1{
         while(node != null) {
             int temp = node.hashCode();
             if(set.contains(temp)) {
-                // System.out.print(node.hashCode() + "this is return value");
+                System.out.print(node.hashCode() + "this is return value");
                 // System.out.print(set);
                 return node;
             } else {
