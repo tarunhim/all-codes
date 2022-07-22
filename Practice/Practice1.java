@@ -28,7 +28,7 @@ class Practice1{
         while(node != null) {
             int temp = node.hashCode();
             set.add(temp);
-            System.out.print(node.hashCode()+" ");
+            // System.out.print(node.hashCode()+" ");
             node = node.next;
             
         }
