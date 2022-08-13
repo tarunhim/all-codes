@@ -1,55 +1,48 @@
-// Online Java Compiler
-// Use this editor to write, compile and run your Java code online
-import java.util.*;
-class Practice1{
-    public static void main(String[] args) {
-        ListNode root1 = new ListNode(4);
-        root1.next = new ListNode(1);
-        root1.next.next = new ListNode(8);
-        root1.next.next.next = new ListNode(4);
-        root1.next.next.next.next = new ListNode(5);
-        ListNode root2 = new ListNode(5);
-        root2.next = new ListNode(6);
-        root2.next.next = new ListNode(1);
-        root2.next.next.next = root1.next.next;
-        System.out.print(new Solution().getIntersectionNode(root1, root2).val);
-        // ListNode node = root2;
-        // while(node != null) {
-        //     System.out.print(node.val+" ");
-        //     node = node.next;
-        // }
-    }
+import java.io.*; // for handling input/output
+import java.util.*; // contains Collections framework
 
-}
- class Solution {
-    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-        Set<Integer> set = new HashSet<>();
-        ListNode node = headA;
-        while(node != null) {
-            int temp = node.hashCode();
-            set.add(temp);
-            System.out.print(node.hashCode()+" ");
-            node = node.next;
-            
+// don't change the name of this class
+// you can add inner classes if needed
+class Practice1 {
+    public static void main (String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String[] str = br.readLine().split(" ");
+        int n = Integer.parseInt(str[0]);
+        int e = Integer.parseInt(str[1]);
+        ArrayList<Integer>[] adj = new ArrayList[n];
+        for(int i = 0; i < n; ++i) {
+            adj[i] = new ArrayList<>();
         }
-        node = headB;
-        while(node != null) {
-            int temp = node.hashCode();
-            if(set.contains(temp)) {
-                // System.out.print(node.hashCode() + "this is return value");
-                // System.out.print(set);
-                return node;
-            } else {
-                set.add(temp);
+        for(int i = 0; i < e; ++i) {
+            str = br.readLine().split(" ");
+            int a = Integer.parseInt(str[0]);
+            int b = Integer.parseInt(str[1]);
+            adj[a].add(b);
+            adj[b].add(a);
+        }
+        Set<Integer> set = new HashSet<>();
+        boolean[] vis = new boolean[n];
+        for(int i = 0; i < n; ++i) {
+            if(!vis[i]) {
+                solve(i,-1,adj,vis,set);
             }
         }
-        return null;
+        System.out.print(set.size());
+
+    }
+    static boolean solve(int src, int prev, ArrayList<Integer>[] adj, boolean[] vis,Set<Integer> set) {
+        vis[src] = true;
+        boolean flag = false;
+        for(int i : adj[src]) {
+            if(i != prev) {
+                if(!vis[i]) {
+                    flag = flag || solve(i,src,adj,vis,set);
+                } else {
+                    flag = true;
+                }
+            }
+        }
+        if(flag) set.add(src);
+        return flag;
     }
 }
- class ListNode {
-         int val;
-         ListNode next;
-         ListNode() {}
-         ListNode(int val) { this.val = val; }
-         ListNode(int val, ListNode next) { this.val = val; this.next = next; }
-     }
