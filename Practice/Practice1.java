@@ -8,7 +8,8 @@ public class Practice1 {
         char[][] board = {{'C','A','P'},{'A','N','D'},{'T','I','E'}};
         String[] dictionary = {"CAT"};
         System.out.print(
-            new Solution().wordBoggle(board, dictionary)
+            new Solution().
+            wordBoggle(board, dictionary)
             );
     }
     
@@ -31,7 +32,7 @@ class Solution
         int k = 0;
         while(it.hasNext()) {
             ans[k++] = it.next();
-            System.out.print(ans[k-1]);
+            System.out.print(ans.toString());
         }
        return ans;
     }
@@ -46,7 +47,7 @@ class Solution
             for(int k : arr2) {
                 if(l != 0 || k != 0) {
                     if(
-                        solve(board,str.substring(1),l,k)
+                        solve(board,str.substring(1),i+l,j+k)
                         ) {
                         board[i][j] = temp;
                         return true;
