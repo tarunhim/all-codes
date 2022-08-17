@@ -16,15 +16,41 @@ class Solution
     public String[] wordBoggle(char board[][], String[] dictionary)
     {   int n = board.length;
         int m = board[0].length;
-        Map<Character,ArrayList<int[]>> map = new HashMap<>();
+        Set<String> set = new HashSet<>();
         for(int i = 0; i < n; ++i) {
             for(int j = 0; j < m; ++j) {
-                char a = board[i][j];
-                if(map.containsKey(a)) 
-            map.put(a,);
-            System.out.println(map.get(a));
+                for(String str : dictionary) {
+                    if(solve(board,str,i,j)) set.add(str);
+                }
             }
         }
-        return new String[] {"ksh"};
+        String[] ans = new String[set.size()];
+        Iterator<String> it = set.iterator();
+        int k = 0;
+        while(it.hasNext()) {
+            ans[k++] = it.next();
+            System.out.print(ans[k-1]);
+        }
+       return ans;
+    }
+    boolean solve(char[][] board, String str, int i, int j) {
+        if(str.length() == 0) return true;
+        if(i < 0 || i >= board.length || j < 0 || j >= board[0].length || board[i][j] != str.charAt(0)) return false;
+        char temp = board[i][j];
+        board[i][j] = '#';
+        int[] arr1 = {0,1,-1};
+        int[] arr2 = {0,1,-1};
+        for(int l : arr1) {
+            for(int k : arr2) {
+                if(l != 0 || k != 0) {
+                    if(solve(board,str.substring(1),l,k)) {
+                        board[i][j] = temp;
+                        return true;
+                    }
+                }
+            }
+        }
+        board[i][j] = temp;
+        return false;
     }
 }
