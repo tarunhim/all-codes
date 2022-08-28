@@ -3,7 +3,10 @@ class Main{
     public static void main(String[] args) {
         int[][] row = {{1,2},{3,2}};
         int[][] col = {{3,2},{2,1}};
-        System.out.print(Arrays.toString(new Solution().buildMatrix(3, row, col)));
+        int[][] ans = new Solution().buildMatrix(3, row, col);
+        for(int[] i : ans) {
+            System.out.println(Arrays.toString(i));
+        }
     }
 }
 
