@@ -25,8 +25,8 @@ class Solution {
             col[i[0]].add(i[1]);
         }
         int[] cols = sort(col);
-        System.out.println(Arrays.toString(rows));
-        System.out.print(Arrays.toString(cols));
+        // System.out.println(Arrays.toString(rows));
+        // System.out.print(Arrays.toString(cols));
         if(isCycle(row,rows) || isCycle(col,cols)) return new int[][]{};
         
         int[][] ans = new int[k][k];
