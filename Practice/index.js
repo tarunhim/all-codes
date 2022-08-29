@@ -1,4 +1,23 @@
 console.log("tarun");
+class Node{
+
+    constructor(val) {
+        this.val = val;
+        this.left = null;
+        this.right = null;
+    }
+}
+const print = (node) => {
+    console.log(node.val);
+    if(node.left !== null) print(node.left);
+    if(node.right !== null) print(node.right);
+}
+let root = new Node(5);
+root.left = new Node(1);
+root.right = new Node(4);
+root.right.left = new Node(3);
+root.right.right = new Node(6);
+print(root);
 
 
 var isValidBST = function(root) {
@@ -12,3 +31,4 @@ var isValidBST = function(root) {
     return (root,Number.MAX_VALUE,Number.MIN_VALUE);
     
 };
+console.log(isValidBST(root));
