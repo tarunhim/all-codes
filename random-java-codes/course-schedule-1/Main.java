@@ -2,7 +2,9 @@ import java.util.*;
 import java.io.*;
 class Main{
     public static void main(String[] args) {
-        System.out.print("hi rarun ksjf");
+        int[][] arr = {{0,1},{1,0}};
+        int n = 2;
+        System.out.print(new Solution().canFinish(n,arr));
     }
 }
 
