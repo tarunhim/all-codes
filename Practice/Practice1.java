@@ -25,7 +25,7 @@ class Solution
                 for(String str : dictionary) {
                     if(solve(board,str,i,j)) set.add(str);
                 }
-            }
+            } 
         }
         String[] ans = new String[set.size()];
         Iterator<String> it = set.iterator();
