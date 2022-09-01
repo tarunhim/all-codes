@@ -28,7 +28,6 @@ class Solution
             } 
         }
         String[] ans = new String[set.size()];
-        
         Iterator<String> it = set.iterator();
         int k = 0;
         while(it.hasNext()) {
