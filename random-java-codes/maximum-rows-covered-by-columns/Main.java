@@ -1,3 +1,8 @@
+class Main{
+    
+}
+
+
 class Solution{
 	public int maximumRows(int[][] mat, int cols){
 		return solve(mat,new boolean[mat[0].length],0,cols);
