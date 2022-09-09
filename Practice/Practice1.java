@@ -1,7 +1,7 @@
 import java.io.*; // for handling input/output
 import java.util.*; // contains Collections framework
 
-class Test {
+class Practice1 {
 public static void swap(Integer i, Integer j) {
      Integer temp = new Integer(i);
      i = j;
