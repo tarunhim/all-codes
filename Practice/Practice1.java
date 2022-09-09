@@ -10,12 +10,13 @@ class Practice1{
 	}
 	static int solve(int[] arr, int index, int k){
 		int ret = 0;
-		System.out.println(k);
+		// System.out.println(k);
 		if(k == 0) ret++;
 		if(index >= arr.length) return ret;
 		
 		int with = solve(arr,index+1,k-arr[index]);
-		int without = solve(arr, index+1,k);
+		
+		int without = k == 0 ? 0 : solve(arr, index+1,k);
 		
 		return ret+with+without;
 	}
