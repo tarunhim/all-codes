@@ -2,46 +2,79 @@ class Main
 {
 	public static void main(String[] args)
 	{
-		Node root = new Node(10);
-		root.left = new Node(-2);
-		root.right = new Node(7);
-		root.left.left = new Node(8);
-		root.left.right = new Node(-4);
-		print(root);
-		//System.out.print(maxSum(root));
-	}
-	static int maxSum(Node root)
-	{
-		if(root == null) return -1000000;
-		int sum1 = maxSum(root.left);
-		int sum2 = maxSum(root.right);
-		
-		int a = max(root.left);
-		int b = max(root.right);
-		int sum3 = Math.max(root.val+a+b,Math.max(root.val+a,Math.max(root.val+b,root.val)));
-		return Math.max(sum1,Math.max(sum2,sum3));
-	}
-	static int max(Node root)
-	{
-		if(root == null) return -1000000;
-		return Math.max(root.val,root.val+Math.max(max(root.left),max(root.right)));
-	}
-	static void print(Node root)
-	{
-		if(root == null) return;
-		print(root.left);
-		System.out.println(root.val);
-		print(root.right);
+		int[] arr = {4,2,1,4,3,4,5,8,15};
+		int k = 3;
+		System.out.print(new Solution().lengthOfLIS(arr, k));
 	}
 }
 
-class Node
+class Solution {
+    public int lengthOfLIS(int[] nums, int k) {
+        int n = nums.length;
+        SegTree segTree = new SegTree(maxValue(nums) + 1);
+        
+        int ans = 1;
+        for(int i = 0; i < n; i++) {
+            int start = Math.max(1, nums[i] - k);
+            int end = nums[i] - 1;
+            int res = segTree.query(start, end);
+            ans = Math.max(ans, 1 + res);
+            segTree.update(nums[i], res + 1);
+        }
+        return ans;
+    }
+    
+    private int maxValue(int[] nums) {
+        int max = 0;
+        for(int num : nums)
+            max = Math.max(max, num);
+        return max;
+    }
+    
+}
+
+class SegTree 
 {
-	int val;
-	Node left;	
-	Node right;
-	Node(int val)
+    int[] tree;
+    int n;
+    
+    SegTree(int n) 
 	{
-		this.val = val;
-	}
+        this.n = n;
+        tree = new int[4 * n];
+    }
+    
+    public void update(int i, int val) 
+	{
+        update(0, n - 1, i, 0, val);
+    }
+    
+    private void update(int l, int r, int i, int node, int val) 
+	{
+        if(l == r) {
+            tree[node] = val;
+            return;
+        }
+        int mid = l + (r - l) / 2;
+        if(i <= mid) update(l, mid, i, 2 * node + 1, val);
+        else update(mid + 1, r, i, 2 * node + 2, val);
+        tree[node] = Math.max(tree[node], Math.max(tree[2 * node + 1], tree[2 * node + 2]));
+    }
+    
+    public int query(int st, int end) 
+	{
+        return query(0, n - 1, st, end, 0);
+    }
+    
+    private int query(int l, int r, int st, int end, int node) 
+	{
+        if(l > end || r < st) return 0;
+        if(l >= st && r <= end) {
+            return tree[node];
+        }
+        int mid = l + (r - l) / 2;
+        int res = query(l, mid, st, end, 2 * node + 1);
+        res = Math.max(res, query(mid + 1, r, st, end, 2 * node + 2));
+        return res;
+    }
 }
