@@ -22,8 +22,8 @@ class Main
 		map.put(root.val, null);
 		Node node = root;
 		create(map,node);
-		int target = 9;
-		int k = 0;
+		int target = 40;
+		int k = 2;
 		node = root;
 		Node temp = find(node,target);
 		node = root;
