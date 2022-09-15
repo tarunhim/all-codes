@@ -17,6 +17,7 @@ class Main
 			int count = solve(arr,i,k);
 			count += solve(arr,k,j);
 			count += arr[i]*arr[k]*arr[j];
+
 			min = Math.min(min,count);
 		}
 		return min;
