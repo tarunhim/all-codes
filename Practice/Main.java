@@ -1,21 +1,13 @@
+import java.util.*;
+import java.io.*;
+public class Main 
+{
 
-public class Main {
-
- public static void main(String[] args) {
- 
-   TestClass c1 = new TestClass(2, 5.2);
-   TestClass c2 = new TestClass(3, 7.5);
-   System.out.println(c1.a + ", " + c1.b);
- }
+	public static void main(String[] args) 
+	{
+		int[] arr = {4,2,5,2,3,6,1};
+		Arrays.sort(arr);
+		System.out.println(Arrays.toString(arr)); 
+	}
 }
 
-class TestClass {
-
- public int a;
- public double b;
- 
- public TestClass(int first, double second) {
-   this.a = first;
-   this.b = second;
- }
-}
