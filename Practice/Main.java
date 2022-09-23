@@ -5,9 +5,9 @@ public class Main
 
 	public static void main(String[] args) 
 	{
-		int[] arr = {4,2,5,2,3,6,1};
-		Arrays.sort(arr,new Comparator<int>(){
-			public int compare(int a, int b)
+		Integer[] arr = {4,2,5,2,3,6,1};
+		Arrays.sort(arr,new Comparator<Integer>(){
+			public int compare(Integer a, Integer b)
 			{
 				return a-b;
 			}
