@@ -4,7 +4,7 @@ class Stream1
 {
 	public static void main(String[] args)
 	{
-		List<Pair<String,Integer>> list = new List<>();
+		List<Pair<String,Integer>> list = new ArrayList<>();
 		list.add(new Pair<>("tarun",8898));
 		list.add(new Pair<>("varun",3848));
 		list.add(new Pair<>("akash",8420));
