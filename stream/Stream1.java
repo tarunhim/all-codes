@@ -9,7 +9,8 @@ class Stream1
 		list.add(new Pair<>("varun",3848));
 		list.add(new Pair<>("akash",8420));
 		list.add(new Pair<>("rohan",8348));
-		list.stream().forEach((item) -> System.out.println(item.name+" "+item.id));
+		List<Pair<String,Integer>> ans = list.stream().map((item) -> new Pair<String,Integer>(item.name,item.id/2));
+		ans.stream().forEach((item) -> System.out.println(item.name+" "+item.id));
 	}
 }
 
