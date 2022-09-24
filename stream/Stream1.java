@@ -1,8 +1,15 @@
+import java.util.*;
+import java.io.*;
 class Stream1
 {
 	public static void main(String[] args)
 	{
-		
+		List<Pair<String,Integer>> list = new List<>();
+		list.add(new Pair<>("tarun",8898));
+		list.add(new Pair<>("varun",3848));
+		list.add(new Pair<>("akash",8420));
+		list.add(new Pair<>("rohan",8348));
+		list.stream().forEach((item) -> System.out.println(item.name+" "+item.id));
 	}
 }
 
