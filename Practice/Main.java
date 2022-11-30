@@ -1,25 +1,36 @@
+import java.util.*;
+import java.io.*;
+
+class ListNode{
+	int val;
+	ListNode next;
+	ListNode(){
+
+	}
+	ListNode(int val) {
+		this.val = val;
+	}
+	
+
+}
+
+
 class Solution {
     public ListNode removeNodes(ListNode head) {
-        boolean shouldContinue = true;
-        while (shouldContinue) {
-            shouldContinue = false;
-            ListNode dummyHead = new ListNode();
-            ListNode pointer = dummyHead;
-            ListNode node = head;
-            while (node != null) {
-                if (node.next != null && node.val < node.next.val) {
-                    shouldContinue = true;
-                } else {
-                    pointer.next = node;
-                    pointer = node;
-                    // System.out.println(pointer.val);
-                }
-                node = node.next;
-            }
-            pointer.next = null;
-            head = dummyHead.next;
-            // System.out.println("-----------------");
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a,b) -> b-a);
+        return solve(head,pq);
+    }
+    ListNode solve(ListNode head, PriorityQueue<Integer> pq) {
+        if(head == null) {
+            return null;
         }
+
+        ListNode next = solve(head.next,pq);
+        if(pq.size() > 0 && pq.peek() > head.val) {
+            return next;
+        }
+        pq.offer(head.val);
+        head.next = next;
         return head;
     }
 }
