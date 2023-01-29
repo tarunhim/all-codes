@@ -1,47 +1,26 @@
-import java.util.*;
-import java.io.*;
-
-class ListNode{
-	int val;
-	ListNode next;
-	ListNode(){
-
-	}
-	ListNode(int val) {
-		this.val = val;
-	}
-	
-
-}
-
-
-class Solution {
-    public ListNode removeNodes(ListNode head) {
-        PriorityQueue<Integer> pq = new PriorityQueue<>((a,b) -> b-a);
-        return solve(head,pq);
-    }
-    ListNode solve(ListNode head, PriorityQueue<Integer> pq) {
-        if(head == null) {
-            return null;
-        }
-
-        ListNode next = solve(head.next,pq);
-        if(pq.size() > 0 && pq.peek() > head.val) {
-            return next;
-        }
-        pq.offer(head.val);
-        head.next = next;
-        return head;
+class Main {
+    
+    public static void main(String[] args) {
+        System.out.println("hi this is tarun");
+        int[] nums = {1,2,3,4};
+        int k = 4;
+        System.out.println(new Solution().countPartitions(nums, k));
     }
 }
-class Main
-{
-	public static void main(String[] args)
-	{
 
-
-
-		for(int i = 0; i < 10; ++i)
-		System.out.println(i);
-	}
+class Solution{
+    public int countPartitions(int[] A, int k) {
+        long mod = (long)1e9 + 7, total = 0, res = 1, dp[] = new long[k];
+        dp[0] = 1;
+        for (int a : A) {
+            for (int i = k - 1 - a; i >= 0; --i)
+                dp[i + a] = (dp[i + a] + dp[i]) % mod;
+            res = res * 2 % mod;
+            total += a;
+        }
+        for (int i = 0; i < k; ++i) {
+            res -= total - i < k ? dp[i] : dp[i] * 2;
+        }
+        return (int)((res % mod + mod) % mod);
+    }
 }
