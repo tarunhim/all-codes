@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Change to the repository directory
+cd /Users/tarun/Documents/Shippigo-repositories/shippigo
+
+# Open the repository in Visual Studio Code
+git pull &&
+npm i &&
+npm run start-dev &
+
+sleep 10
+
+# Open a new terminal and execute the cURL command
+osascript -e '
+tell application "Terminal"
+    activate
+    do script "curl --location http://localhost:8000/actuator/health"
+end tell
+'
+
+
+
+
