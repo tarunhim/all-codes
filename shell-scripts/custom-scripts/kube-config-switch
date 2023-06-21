@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Check the argument
+if [[ "$1" == "dev" ]]; then
+  # Copy the dev config
+  cp ~/Documents/shippigo-related/kubectl-config/kubectl-config-dev ~/.kube/config
+elif [[ "$1" == "prod" ]]; then
+  # Copy the prod config
+  cp ~/Documents/shippigo-related/kubectl-config/emiza-prod-readonly.config ~/.kube/config
+elif [[ "$1" == "qa" ]]; then
+  # Copy the qa config
+  cp ~/Documents/shippigo-related/kubectl-config/emiza-qa-readonly.config ~/.kube/config
+else
+  echo "Invalid argument"
+fi
