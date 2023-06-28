@@ -29,21 +29,28 @@ pod_status=()
 
 # Iterate over each pod and check if logs are coming
 for pod in "${pods[@]}"; do
-echo "Checking logs for pod: $pod"
+    echo "Checking logs for pod: $pod"
+
     # Open logs for the pod
-    kubectl logs -n shippigo "$pod" > /dev/null 2>&1
-    
-    # Check if logs are coming by checking the exit code of the previous command
-    if [[ $? -eq 0 ]]; then
+    logs=$(kubectl logs -n shippigo "$pod" --tail=10 2>&1)
+
+    # Check if logs are coming by checking the output
+    if [[ -n "$logs" ]]; then
         # Logs are coming
-echo "Logs are coming for $pod"
         pod_status+=("Logs are coming for $pod")
+        echo "Logs found for $pod:"
+        echo "$logs"
     else
         # Logs are not coming
-echo "Logs are not coming for $pod"
         pod_status+=("Logs are not coming for $pod")
+        echo "No logs found for $pod"
     fi
+
+    echo ""
 done
+
+
+
 
 echo ""
 
