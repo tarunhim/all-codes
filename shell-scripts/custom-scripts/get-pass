@@ -10,6 +10,10 @@ elif [[ "$1" == "gitlab" ]]; then
   # Copy the prod config
   echo "MIvFvSGfSotkdlmF9xKsTZ3q3NZfKKlXy4q/H39KdHw=" | pbcopy
   echo "gitlab password copied"
+elif [[ "$1" == "dev-db" ]]; then
+  # Copy dev db password
+  echo "VyhUuf/sdUQfMoxUwel+WHvEwpmjObANlNYi2fmosu8=" | pbcopy
+  echo "dev-db password copied"
 else
   echo "Invalid argument"
 fi
