@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# Check if VSCode is running and a terminal is open
+if pgrep -f "Visual Studio Code" && osascript -e 'tell application "Visual Studio Code" to get active terminal' > /dev/null; then
+  echo "VSCode terminal is already open"
+else
+  # Open VSCode
+  code /Users/tarun/Documents/Shippigo-repositories/shippigo
+  sleep 2
+
+  # Bring focus to the newly opened VSCode window
+  osascript -e 'tell application "System Events" to tell process "Code" to set frontmost to true'
+
+  # Wait for the terminal to be ready
+  sleep 2
+
+  # Create a new terminal and focus on it
+  osascript -e 'tell application "System Events" to tell process "Code" to keystroke "`" using {control down, option down}'
+  osascript -e 'tell application "System Events" to tell process "Code" to key code 36'
+  sleep 2
+fi
+
+# Send the commands to the terminal
+osascript -e 'tell application "System Events" to tell process "Code" to keystroke "git pull"'
+osascript -e 'tell application "System Events" to tell process "Code" to key code 36'
+wait
+osascript -e 'tell application "System Events" to tell process "Code" to keystroke "npm i"'
+osascript -e 'tell application "System Events" to tell process "Code" to key code 36'
+wait
+osascript -e 'tell application "System Events" to tell process "Code" to keystroke "npm run start-dev"'
+osascript -e '
+
