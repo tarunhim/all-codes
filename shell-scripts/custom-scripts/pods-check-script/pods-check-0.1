@@ -1,0 +1,56 @@
+#!/bin/bash
+
+# Execute the command and store the output in a variable
+output=$(kubectl get pods -n shippigo | grep "tracking" | grep -v "page")
+
+# Array to store pod names
+pods=()
+
+# Iterate over each line in the output
+while IFS= read -r line; do
+    # Extract the pod name from the line
+    pod_name=$(echo "$line" | awk '{print $1}')
+    pods+=("$pod_name")
+done <<< "$output"
+
+# Array to store pod status
+pod_status=()
+
+# Iterate over each pod and check if logs are coming
+for pod in "${pods[@]}"; do
+    echo "Checking logs for pod: $pod"
+    
+    # Open logs for the pod
+    logs=$(kubectl logs -n shippigo "$pod" --tail=10 2>&1)
+    
+    # Check if logs are coming by checking the output
+    if [[ -n "$logs" ]]; then
+        # Logs are coming
+        pod_status+=("Logs are coming for $pod")
+        echo "Logs found for $pod:"
+        echo "$logs"
+    else
+        # Logs are not coming
+        pod_status+=("Logs are not coming for $pod")
+        echo "No logs found for $pod"
+    fi
+
+    echo ""
+done
+
+# Print the results
+echo "Pods where logs are coming:"
+for status in "${pod_status[@]}"; do
+    if [[ $status == *"Logs are coming"* ]]; then
+        echo "$status"
+    fi
+done
+
+echo ""
+
+echo "Pods where logs are not coming:"
+for status in "${pod_status[@]}"; do
+    if [[ $status == *"Logs are not coming"* ]]; then
+        echo "$status"
+    fi
+done
