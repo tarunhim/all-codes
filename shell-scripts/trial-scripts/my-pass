@@ -1,0 +1,8 @@
+#!/bin/bash
+
+
+# Copy the password to the clipboard
+echo -n "QRCvcEvd9YjdlY2xAX1I5KxinPMfaunxplJ+wEmFaec=" | pbcopy
+
+# Display a message to the user
+echo "Password copied to clipboard."
