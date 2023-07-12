@@ -1,0 +1,5 @@
+#!/bin/bash
+cd /Users/tarun/Documents/Shippigo-repositories/rb-toolkit
+git pull &&
+npm i &&
+npm start
