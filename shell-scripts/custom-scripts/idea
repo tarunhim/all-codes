@@ -1,3 +1,5 @@
 #!/bin/sh
 
 open -na "IntelliJ IDEA CE.app" --args "$@"
+# in mac need to go in setting -> Desktop & Dock -> prefer tabs when opening document
+# intellije -> system setting -> project -> open project in
