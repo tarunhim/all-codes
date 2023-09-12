@@ -1,0 +1,29 @@
+#!/usr/bin/expect -f
+
+# Check if the correct number of arguments is provided
+if {$argc != 3} {
+    puts "Usage: $argv0 local_port remote_hostname remote_port"
+    exit 1
+}
+
+# Get the local port and remote hostname from command-line arguments
+set local_port [lindex $argv 0]
+set remote_hostname [lindex $argv 1]
+set remote_port [lindex $argv 2]
+
+# Set the SSH command to execute
+set ssh_command "ssh -L $local_port:$remote_hostname:$remote_port tarunkumar@bastion.emizainc.com"
+
+# Set the password
+set password "QRCvcEvd9YjdlY2xAX1I5KxinPMfaunxplJ+wEmFaec="
+
+# Execute the SSH command
+eval spawn $ssh_command
+
+# Expect the password prompt
+expect "password:"
+send "$password\r"
+
+# Wait for the SSH session to finish
+interact
+
