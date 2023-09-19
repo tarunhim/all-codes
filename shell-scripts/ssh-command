@@ -1,0 +1,18 @@
+#!/usr/bin/expect -f
+
+# Set the SSH command to execute
+set ssh_command "ssh -L $argv 9995:webhookhandler-service.tracking.qa.internal:80 tarunkumar@bastion.emizainc.com"
+
+# Set the password
+set password "QRCvcEvd9YjdlY2xAX1I5KxinPMfaunxplJ+wEmFaec="
+
+# Execute the SSH command
+eval spawn $ssh_command
+
+# Expect the password prompt
+expect "password:"
+send "$password\r"
+
+# Wait for the SSH session to finish
+interact
+
